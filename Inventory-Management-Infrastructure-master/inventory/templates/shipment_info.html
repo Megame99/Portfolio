@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Inventory Tracking App</title>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <!-- Navbar content -->
+        <a class="navbar-brand" href="#"> INVENTORY TRACKING APP </a>
+    </nav>
+    <div class="container p-3 my-3 bg-blue text-black" style="background-color:lightblue; width:100%;">
+        <div style="float:left;width:50%;" >
+            <h2>Shipment Report</h2>
+            <p class="card-text">Item Code: {{ shipment.order.item.itemcode}}</p>
+            <p class="card-text">Current Location: {{ shipment.order.item.location}}</p>
+            <p class="card-text">Destination: {{ shipment.destination}}</p>
+            <p class="card-text">Shipping Distance: {{ shipment.distance}}</p>
+            <p class="card-text">Shipping Duration(Days): {{ shipment.duration}}</p>
+            <p class="card-text">Shipping Cost: {{ shipment.ship_cost}}</p>
+            <p class="card-text">Timestap: {{ shipment.created}}</p>
+            <form method="POST" class="post-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{item.distance}}
+                <a class="btn btn-primary btn-lg" href="/create_shipment/{{ shipment.order.orderID }}">Confirm & Send Receipt</a>
+                <a class="btn btn-danger btn-lg" href="/calculate_shipment/{{ shipment.order.orderID }}">Go Back</a>
+            </form>
+        </div>   
+        <div style="float:right;width:50%">
+            {{ map|safe }}
+        </div>
+            This product includes GeoLite2 data created by MaxMind, available from
+            <a href="https://www.maxmind.com">https://www.maxmind.com</a>.
+
+        </div>
+
+
+</body>
+
+</html>

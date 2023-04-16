@@ -1,0 +1,162 @@
+#!bin/bash -u
+PATH=/bin:/usr/bin ; export PATH
+umask 022
+
+# Name: Megan Machkouri
+# Number: 041006409
+# Course: CST 8102
+# Section: 311
+# Description: A bash script that is capable of performing addition and subtraction calculations on two integers. It has two modes of operation; no parameters or with three parameters. 
+# If no parameters are passed it displays a menu allowing the user to input a choice, program utilizes a variety of selection structures in order to handle user input.
+# The program performs error checking and correctly assigns operation based off user input. If three parameters are provided the second paramter must be either "+" or "-" and the remaining
+# must be integers only. If the incorrect number of parameters are provided the script will display an error message. 
+# exit the program.
+
+function add () # Addition Function(requires 3 parameters) 
+{
+        ((sum=$1+$3))
+        echo "The sum of $1 plus $3 is $sum"
+}
+
+function subtract () # Subtraction Function(requires 3 parameters)
+{
+        ((sum=$1-$3))
+        echo "The sum of $1 minus $3 is $sum"
+}
+
+choice=w # Initialize to dummy value 
+
+#Initialize while loop so that program will continue looping until X/x is inputed
+#Allows Menu1 to be redisplayed
+while [ $# -eq 0 ] && [ $choice != "X" ] && [ $choice != "x" ] 
+do
+        echo "MENU 1"
+        echo "C) Calculation"
+        echo "X) Exit"
+        echo "Enter option : " ; read choice
+        #Re-assign choice variable to user input
+        echo "You entered $choice. "
+        sleep 3
+        #Delay 3 seconds
+
+#Decision structure in order to perform appropriate function based off user input
+if [[ $choice == "C" ]] || [[ $choice == "c" ]] #Calculation
+then
+        clear
+        number1=0 # Initialize to dummy value 
+        while [ $number1 != "X" ] && [ $number1 != "x" ] # Initialize while loop 
+        do
+        echo "MENU 2"
+        echo "Please enter an integer or X to exit" ; read number1
+        #Re-assign choice variable to user input
+        if [[ $number1 != "X" ]] && [[ $number1 != "x" ]]
+        then
+                clear
+                operator=0 # Initialize to dummy value 
+                while [ $operator != "X" ] && [ $operator != "x" ] # Initialize while loop (Allows Menu 2 to be redisplayed if invalid option is passed)
+                do
+                        echo "MENU 3"
+                        echo "+) ADD"
+                        echo "-) SUBTRACT"
+                        echo "X) Exit"
+                        #Re-assign choice variable to user input
+                        echo "Enter option : " ; read operator
+
+
+                        if [[ $operator == "+" ]] #ADDITION
+                        then
+                               clear
+                               number2=0
+                               while [ $number2 != "X" ] && [ $number2 != "x" ] # Initialize while loop (Read Second Integer)
+                               do
+                                         echo "MENU 2"
+                                         echo "Please enter an integer or X to exit" ; read number2
+
+                                         if [[ $number2 == "X" ]] || [[ $number2 == "x" ]]
+                                         then
+                                                 echo "Goodbye..." 
+
+                                                 #Break While loops(Program Termination)
+
+                                                 operator="X"
+                                                 number1="X"
+                                                 choice="X"
+                                         else
+                                                 clear
+                                                 add $number1 $operator $number2 # Function Call 
+                                                 sleep 3
+                                                 #Delay Three Seconds
+                                                 number2="X"
+operator="X"
+                                                 number1="X"
+                                                 #Re-Display First Menu
+
+                                         fi
+                                 done
+                         elif [[ $operator == "-" ]] #SUBTRACTION
+                         then
+                                clear
+                               number2=0
+                               while [ $number2 != "X" ] && [ $number2 != "x" ] # Initialize while loop (Read Second Integer)
+                                 do
+                                         echo "MENU 2"
+                                         echo "Please enter an integer or X to exit" ; read number2
+
+                                         if [[ $number2 == "X" ]] || [[ $number2 == "x" ]]
+                                         then
+                                                echo "Goodbye..."
+                                                operator="X"
+                                                 number1="X"
+                                                 choice="X"
+                                                 #Break While loops(Program Termination)
+
+                                         else
+                                                 clear
+                                                 subtract $number1 $operator $number2 #Function Call
+                                                 sleep 3
+                                                 #Delay Three Seconds
+                                                 number2="X"
+                                                 operator="X"
+                                                 number1="X"
+                                                 #Re-Display First Menu
+                                         fi
+                                 done
+                         elif [[ $operator == "X" ]] || [[ $operator == "x" ]] #EXIT PROGRAM
+                         then
+                                 echo "Goodbye..."
+                                 number1="X"
+                                 choice="X"
+                         else                                                   #INVALID MENU OPTION
+                                echo "Invalid Choice! Try Again!"
+                        fi
+                done
+        elif [[ $number1 == "X" ]] || [[ $number1 == "x" ]] #EXIT PROGRAM
+        then
+                echo "Goodbye..."
+                choice="X"
+else                                                                    #INVALID MENU OPTION
+                echo "Invalid Choice! Try Again..."
+        fi
+done
+
+elif [[ $choice == "X" ]] || [[ $choice == "x" ]] #EXIT PROGRAM
+then
+        echo "Goodbye..."
+else                                                                            #INVALID MENU OPTION
+        echo "Invalid option!"  
+fi
+done
+
+#Decision Structure in order to perform appropriate function if 3 parameters are provided
+if [[ $# -eq 3 ]] && [[ $2 == "+" ]]
+then
+        add $1 $2 $3
+elif [[ $# -eq 3 ]] && [[ $2 == "-" ]]
+then
+        subtract $1 $2 $3
+elif [[ $# -ne 3 ]] && [[ $# -ne 0 ]]
+then
+        echo "Incorrect Number Of Parameters! 0 or 3 Required!"
+fi
+
+

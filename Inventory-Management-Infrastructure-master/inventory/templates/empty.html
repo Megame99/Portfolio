@@ -1,0 +1,54 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8"> 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+ 
+    <title>Inventory Tracking App</title>  
+    
+</head>  
+<body>     
+    <nav class="navbar navbar-dark bg-dark">
+        <!-- Navbar content -->
+          <a class="navbar-brand" href="#"> INVENTORY TRACKING APP </a>
+          <center><a href="/create" class="btn btn-danger btn-lg ">Create New Item</a></center>  
+          <a href="/export_to_csv" class="btn btn-success btn-lg ">Export Inventory Data to CSV</a>
+          
+    </nav>
+
+   
+    
+<table class="table table-striped table-bordered table-sm">  
+    <thead class="thead-dark">  
+    <tr>  
+        <th>Item Code</th>  
+        <th>Item Name</th>  
+        <th>Item Category</th>  
+        <th>Item Quantity</th>
+        <th>Item Description</th>  
+        <th>Update</th>
+        <th>Delete</th>  
+    </tr>  
+    </thead>  
+    <tbody>  
+{% for item in items %}  
+    <tr>
+        <td>{{ item.itemcode }}</td>    
+        <td>{{ item.name }}</td>  
+        <td>{{ item.category }}</td>  
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.description }}</td>      
+        <td>  
+            <a href="/update/{{ item.itemcode }}"><span class="glyphicon glyphicon-pencil" >Update</span></a>  
+        </td> 
+        <td>
+            <a href="/delete/{{ item.itemcode }}">Delete</a>  
+        </td> 
+    </tr>  
+{% endfor %}  
+    </tbody>  
+</table>  
+<center><h1>DATABASE IS EMPTY</h1></center>
+</body>  
+</html>  

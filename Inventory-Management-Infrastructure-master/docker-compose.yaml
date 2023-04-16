@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+   postgres-db:
+    image: postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+   django-web:
+       build: .
+       command: bash -c "python manage.py makemigrations inventory &&
+                         python manage.py migrate &&
+                         python manage.py runserver 0.0.0.0:8080"
+       volumes:
+        - .:/app
+       ports:
+           - 8080:8080
+       environment:
+         - DB_NAME=postgres
+         - DB_USER=postgres
+         - DB_PASSWORD=postgres
+       depends_on:
+        - postgres-db
+        
+volumes:
+    postgres:

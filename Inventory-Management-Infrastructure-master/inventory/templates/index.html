@@ -1,0 +1,119 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8"> 
+    <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+ 
+    <title>Quest RPG</title>
+     
+</head>  
+<body style="background-color:#grey">
+    <nav class="navbar navbar-dark bg-dark">
+        <!-- Navbar content -->
+        <a class="navbar-brand" href="#"> QUEST RPG HUB </a>
+        <a href="/export_to_csv" class="btn btn-success btn-md ">Sign In</a>
+    </nav>
+    <nav class="navbar navbar-light"style="background-color:darkred">
+        <a class="navbar-brand mb-0 center h1 text-center">QUEST BOARD</a>
+        <a href="/create_quest" class="btn btn-primary btn-sm">Post Quest</a>
+
+    </nav>
+    <div style="float:left;width:50%" class="center mb-0">
+            {{ map|safe }}
+    </div>
+        <div class="float:right;width:50%" >
+        <div class="row s4">
+            {% for item in quests %}
+                <div class="card" style="width: 18rem; background-color:#E0E7FF">
+                    <div class="card-body">
+                        <div class="card-image" style="width: 14rem; height:7rem;">
+                            <a><img src="/media/django.jpg" alt="" style="max-width: 300px; max-height: 100px;"></a>
+                        </div>
+                        <h5 class="card-title  text-center">{{ item.name }}</h5>
+                        <p class="card-text">{{ item.description }}</p>
+                        <p class="card-text">Payout: {{ item.list_price }}</p>
+                        <p class="card-text">Location: {{ item.location }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+<!--    <nav class="navbar navbar-light" style="background-color:lightblue">-->
+<!--        <a class="navbar-brand mb-0 center h1 text-center"> Store Inventory </a>-->
+<!--    </nav>-->
+<!--    <div class="container p-3 my-3 bg-blue text-black" style="background-color:lightblue">-->
+<!--        <div class="row s4">-->
+<!--            {% for item in items %}-->
+<!--            <div class="col s4">-->
+<!--                <div class="card" style="width: 18rem;">-->
+<!--                    <div class="card-body">-->
+<!--                        <div class="card-image" style="width: 14rem; height:7rem;">-->
+<!--                            <a><img src="{{ item.image }}" alt="" style="max-width: 300px; max-height: 300px;"></a>-->
+<!--                        </div>-->
+<!--                        <h5 class="card-title  text-center">{{ item.name }}</h5>-->
+<!--                        <p class="card-text">{{ item.description }}</p>-->
+<!--                        <p class="card-text">Price: {{ item.retail_price }}</p>-->
+<!--                        <p class="card-text">Quantity: {{ item.quantity }}</p>-->
+<!--                        <p class="card-text">Location: {{ item.location }}</p>-->
+<!--                        <center>-->
+<!--                            <a href="/update/{{ item.itemcode }}" class="btn btn-success btn-sm">Update</a>-->
+<!--                            <a href="/delete/{{ item.itemcode }}" class="btn btn-danger btn-sm">Delete</a>-->
+<!--                            <a href="/create_order/{{ item.itemcode }}" class="btn btn-primary btn-sm">Order</a>-->
+<!--                        </center>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+<!--    </div>-->
+<!--            <nav class="navbar navbar-light" style="background-color:lightblue">-->
+<!--                <a class="navbar-brand mb-0 center h1 text-center">  Store Orders </a>-->
+<!--            </nav>-->
+<!--            <div class="container p-3 my-3 bg-blue text-black"style="background-color:lightblue">-->
+<!--                <div class="row s4">-->
+
+<!--                    {% for order in orders %}-->
+<!--                    <div class="col s4">-->
+
+<!--                        <div class="card" style="width: 18rem;">-->
+
+<!--                            <div class="card-body">-->
+<!--                                <h5 class="card-title text-danger"> Order ID : {{ order.orderID }}</h5>-->
+<!--                                <p class="card-text">Item - {{ order.item.name }}</p>-->
+<!--                                <p class="card-text">Quantity - {{ order.quantity }}</p>-->
+<!--                                <p class="card-text">Item Total - {{ order.item_cost }}</p>-->
+<!--                                <a class="btn btn-primary btn-lg" href="/calculate_shipment/{{ order.orderID }}">Ship</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                     {% endfor %}-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            <nav class="navbar navbar-light"" style="background-color:lightblue">-->
+<!--                <a class="navbar-brand mb-0 center h1 text-center">  Inventory Shipments </a>-->
+
+<!--            </nav>-->
+<!--            <div class="container p-3 my-3 bg-blue text-black" style="background-color:lightblue">-->
+<!--                <div class="row s4">-->
+<!--                    {% for ship in shipments %}-->
+<!--                    <div class="card" style="width: 18rem;">-->
+<!--                        <div class="col s4">-->
+<!--                            <div class="card-body">-->
+<!--                                <h5 class="card-title"> Shipment ID: {{ ship.order.orderID }}</h5>-->
+<!--                                <p class="card-text">Start Location: {{ shipment.order.item.location }}</p>-->
+<!--                                <p class="card-text">Destination - {{ ship.destination }}</p>-->
+<!--                                <p class="card-text">Shipping Distance: {{ ship.distance}}</p>-->
+<!--                                <p class="card-text">Shipping Duration(Days): {{ ship.duration}}</p>-->
+<!--                                <p class="card-text">Timestap: {{ ship.created }}</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    {% endfor %}-->
+<!--                </div>-->
+<!--            </div>-->
+</body>  
+</html>  
